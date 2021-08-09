@@ -4,7 +4,7 @@ import dto.Product;
 
 public class ProductRepository {
 	private ArrayList<Product>listOfProducts = new ArrayList<Product>();
-	
+	private static ProductRepository instance = new ProductRepository();
 	public ArrayList<Product> getAllProducts(){//메서드 생성
 		return listOfProducts;
 	}
@@ -22,15 +22,38 @@ public class ProductRepository {
 		notebook.setCategory("Note book");
 		notebook.setManufacturer("LG");
 		notebook.setUnitsInStock(1000);
-		notebook.setCondition("New");
+		notebook.setCondition("Refurbished");
 		
 		Product tablet = new Product("P1236", "Galaxy Tab S", 900000);
-		tablet.setDescription("4.7-inch, 1334X750 Renina HD display, 8-megapixel iSight Camera");
-		tablet.setCategory("Smart Phone");
+		tablet.setDescription("212.8*125.6*6.6mm, Super AMOLED display, Octa-Core processor");
+		tablet.setCategory("Tablet");
 		tablet.setManufacturer("Samsung");
 		tablet.setUnitsInStock(1000);
-		tablet.setCondition("New");
+		tablet.setCondition("Old");
 		
 		listOfProducts.add(phone);
+		listOfProducts.add(notebook);
+		listOfProducts.add(tablet);
+		
+	}
+	public Product getProductById(String productId) {
+		Product productById = null;
+		
+		for(int i = 0; i<listOfProducts.size(); i++) {
+			Product product = listOfProducts.get(i);
+			if(product != null&&product.getProductId() != null && product.getProductId().equals(productId)) {
+				productById = product;
+				break;
+			}
+		}
+		return productById;
+	}
+	
+	public static ProductRepository getInstance() {
+		return instance;
+	}
+	
+	public void addProduct(Product product) {
+		listOfProducts.add(product);
 	}
 }
