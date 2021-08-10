@@ -12,6 +12,7 @@ public class Product implements Serializable
 	private String category;//분류
 	private long unitsInStock;//재고 수
 	private String condition;//신상품 또는 중고품 또는 재생품
+	private String filename;
 	
 	public Product()
 	{
@@ -88,4 +89,11 @@ public class Product implements Serializable
 		this.condition = condition;
 	}
 	
+	public String getFilename() {
+		return filename;
+	}
+	
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 }
