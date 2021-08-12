@@ -33,7 +33,7 @@
 				//arr[0] 이런 느낌
 			%>
 			<div class="col-md-4">
-				<img src="c:/upload/<%=product.getFilename() %>"
+				<img src="./upload/<%=product.getFilename() %>"
 				style="width: 100%">
 				<h3><%=product.getPname() %></h3>
 				<p><%=product.getDescription() %>

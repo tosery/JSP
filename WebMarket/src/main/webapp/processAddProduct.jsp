@@ -9,7 +9,8 @@
 	request.setCharacterEncoding("UTF-8");
 
 	String filename = "";
-	String realFolder = "C:\\upload";
+	String realFolder = "C://upload";
+	//String realFolder = getServletContext().getRealPath("/") + "upload";
 	int maxSize = 5*1024*1024;
 	String encType = "utf-8";
 	

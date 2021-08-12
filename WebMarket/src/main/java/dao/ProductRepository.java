@@ -39,6 +39,7 @@ public class ProductRepository {
 		listOfProducts.add(tablet);
 		
 	}
+	//productId를 지정해주는 부분
 	public Product getProductById(String productId) {
 		Product productById = null;
 		
