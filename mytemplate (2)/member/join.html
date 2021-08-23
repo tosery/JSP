@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Google Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/resources/css/bootstrap.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+
+        <a class="navbar-brand" href="/index.html">
+          <i class="material-icons">android</i>
+          Logo
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/member/join.html">회원가입</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/member/login.html">로그인</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">로그아웃</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                내정보 관리
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">비밀번호 변경</a>
+                <a class="dropdown-item" href="#">내정보 수정</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">회원탈퇴</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                게시판
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/board/boardList.html">게시판</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">갤러리</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                채팅 서비스
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">심플 채팅</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">채팅방 목록</a>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="검색" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- end of Navbar -->
+
+
+    
+    <!-- middle container -->
+    <div class="container mt-4">
+      <div class="row">
+
+        <!-- Left Menu -->
+        <div class="col-sm-3">
+
+          <!-- Vertical Nav -->
+          <ul class="nav flex-column nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <!-- end of Vertical Nav -->
+        </div>
+        <!-- end of Left Menu  -->
+
+
+        <!-- Right area -->
+        <div class="col-sm-9">
+          
+          <!-- Contents area -->
+          <div class="border border-info p-4 rounded">
+            <h5>회원 가입</h5>
+
+            <hr class="featurette-divider">
+
+            <form action="" method="POST">
+              <div class="form-group">
+                <label for="id">
+                  <i class="material-icons align-middle">account_box</i>
+                  <span class="align-middle">아이디</span>
+                </label>
+                <input type="text" class="form-control" id="id" aria-describedby="idHelp" name="id" required autofocus>
+                <small id="idHelp" class="form-text text-muted">아이디는 필수 입력 요소입니다.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="password">
+                  <i class="material-icons align-middle">lock</i>
+                  <span class="align-middle">비밀번호</span>
+                </label>
+                <input type="password" class="form-control" id="password" aria-describedby="pwdHelp" name="passwd" required>
+                <small id="pwdHelp" class="form-text text-muted">비밀번호는 필수 입력 요소입니다.</small>
+              </div>
+              <div class="form-group">
+                <label for="password2">
+                  <i class="material-icons align-middle">check</i>
+                  <span class="align-middle">비밀번호 재확인</span>
+                </label>
+                <input type="password" class="form-control" id="password2">
+              </div>
+
+              <div class="form-group">
+                <label for="name">
+                  <i class="material-icons align-middle">person</i>
+                  <span class="align-middle">이름</span>
+                </label>
+                <input type="text" class="form-control" id="name" name="name">
+              </div>
+
+              <div class="form-group">
+                <label for="birthday">
+                  <i class="material-icons align-middle">event</i>
+                  <span class="align-middle">생년월일</span>
+                </label>
+                <input type="date" class="form-control" id="birthday" name="birthday">
+              </div>
+
+              <div class="form-group">
+                <label for="gender">
+                  <i class="material-icons align-middle">wc</i>
+                  <span class="align-middle">성별 선택</span>
+                </label>
+                <select class="form-control" id="gender" name="gender">
+                  <option value="" disabled selected>성별을 선택하세요.</option>
+                  <option value="M">남자</option>
+                  <option value="F">여자</option>
+                  <option value="U">선택 안함</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="email">
+                  <i class="material-icons align-middle">mail</i>
+                  <span class="align-middle">이메일 주소</span>
+                </label>
+                <input type="email" class="form-control" id="email" name="email">
+              </div>
+
+              <div class="text-center">
+                <label class="mr-3">이벤트 등 알림 메일 수신동의 : </label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="recvEmail" id="recvEmailYes" value="Y" checked>
+                  <label class="form-check-label" for="recvEmailYes">동의함</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="recvEmail" id="recvEmailNo" value="N">
+                  <label class="form-check-label" for="recvEmailNo">동의 안함</label>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <label class="mr-3">이벤트 등 알림 메일 수신동의 : </label>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="customRadioInline1" name="customRadioInline" class="custom-control-input" checked>
+                  <label class="custom-control-label" for="customRadioInline1">동의함</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="customRadioInline2" name="customRadioInline" class="custom-control-input">
+                  <label class="custom-control-label" for="customRadioInline2">동의 안함</label>
+                </div>
+              </div>
+              
+              <div class="my-3 text-center">
+                <button type="submit" class="btn btn-primary">회원가입</button>
+                <button type="reset" class="btn btn-primary ml-3">초기화</button>
+              </div>
+            </form>
+
+          </div>
+          <!-- end of Contents area -->
+        </div>
+        <!-- end of Right area -->
+      </div>
+    </div>
+    <!-- end of middle container -->
+
+
+
+    <!-- FOOTER -->
+    <footer class="mt-5 py-5 bg-warning">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md">
+            <i class="material-icons">android</i>
+            <small class="d-block mb-3 text-muted">&copy; 2017-2021</small>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Cool stuff</a></li>
+              <li><a class="text-muted" href="#">Random feature</a></li>
+              <li><a class="text-muted" href="#">Team feature</a></li>
+              <li><a class="text-muted" href="#">Stuff for developers</a></li>
+              <li><a class="text-muted" href="#">Another one</a></li>
+              <li><a class="text-muted" href="#">Last time</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Resource</a></li>
+              <li><a class="text-muted" href="#">Resource name</a></li>
+              <li><a class="text-muted" href="#">Another resource</a></li>
+              <li><a class="text-muted" href="#">Final resource</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Team</a></li>
+              <li><a class="text-muted" href="#">Locations</a></li>
+              <li><a class="text-muted" href="#">Privacy</a></li>
+              <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- end of FOOTER -->
+
+
+
+    <!-- JavaScript -->
+    <script src="/resources/js/jquery-3.6.0.js"></script>
+    <script src="/resources/js/bootstrap.js"></script>
+
+</body>
+</html>
