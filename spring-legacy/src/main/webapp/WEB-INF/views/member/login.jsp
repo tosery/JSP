@@ -12,7 +12,7 @@
 <body class="text-center">
 
 
-  <form class="form-signin" action="" method="POST">
+  <form class="form-signin" action="/member/login" method="POST">
     <a href="/index.html" title="Home으로 가기">
       <i class="material-icons display-4">android</i>
     </a>
@@ -24,22 +24,24 @@
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" name="passwd" id="inputPassword" class="form-control" placeholder="비밀번호" required>
 
-    <div class="checkbox mb-3">
+<!--    <div class="checkbox mb-3">
       <label>
         <input type="checkbox" name="rememberMe" value="remember-me"> 로그인 상태 유지
       </label>
-    </div>
-
+    </div> --> 
+    
+<%-- 직접 입력하는 게 아닌 체크박스는 value값이 있어야 한다. --%>
     <div class="custom-control custom-checkbox text-center mb-3">
       <input type="checkbox" class="custom-control-input" id="customCheck1" name="rememberMe" value="remember-me">
       <label class="custom-control-label" for="customCheck1">로그인 상태 유지</label>
     </div>
-
+    
+<!-- 
     <div class="custom-control custom-switch text-center mb-3">
       <input type="checkbox" class="custom-control-input" id="customSwitch1" name="rememberMe" value="remember-me">
       <label class="custom-control-label" for="customSwitch1">로그인 상태 유지</label>
     </div>
-
+-->
     <button class="btn btn-lg btn-primary btn-block" type="submit">
       <i class="material-icons align-middle">login</i>
       <span class="align-middle">로그인</span>

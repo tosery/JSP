@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 	
-	@GetMapping("/")
+	@GetMapping(value = { "/", "/index" })
 	public String home() {
 		// GET 요청
 		// http://localhost:8090/
@@ -18,6 +18,15 @@ public class HomeController {
 	
 	
 }
+
+
+
+
+
+
+
+
+
 
 
 
