@@ -1,10 +1,15 @@
 package chap03.spring;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MemberDao {
 	private static long nextId = 0;
+	
+	public Collection<Member> selectAll(){
+		return map.values();
+	}
 	
 	private Map<String, Member> map = new HashMap<>();
 	
