@@ -10,7 +10,7 @@ public class MemberDao {
 	public Collection<Member> selectAll(){
 		return map.values();
 	}
-	
+	//키와 값
 	private Map<String, Member> map = new HashMap<>();
 	
 	public Member selectByEmail(String email) {

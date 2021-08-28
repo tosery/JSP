@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import chap03.config.AppConfImport;
-import chap03.spring.ChangePasswordService;
+import chap04.spring.ChangePasswordService;
 import chap03.spring.DuplicateMemberException;
 import chap03.spring.MemberInfoPrinter;
 import chap03.spring.MemberListPrinter;

@@ -3,7 +3,7 @@ package chap03.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import chap03.spring.ChangePasswordService;
+import chap04.spring.ChangePasswordService;
 import chap03.spring.MemberDao;
 import chap03.spring.MemberInfoPrinter;
 import chap03.spring.MemberListPrinter;
