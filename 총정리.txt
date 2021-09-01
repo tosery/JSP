@@ -1,4 +1,5 @@
 -- 2일차 4교시 스프링 레거시--
+속성의 debug탭 버퍼 1,000,000 이상
 스프링 프로젝트는 메이븐을 빌드도구로 끼고 한다.
 
 src/test/java 는 JUnit 같은 테스트를 위한 것이다.
@@ -190,6 +191,7 @@ root-context.xml은 데이터베이스 관련된 것을 설정하는 곳이다.
 			com.zaxxer에 HikariCP 5.0.0
 			Project Lombok 1.18.20
 			Junit 4.12
+			Apache commonsIO 2.11.0
 		</dependency>
 	</dependencies>
 	<build>
@@ -646,7 +648,7 @@ return new ResponseEntity<String>(str, headers, HttpStatus.OK);
 				문자열, 헤더정보, 응답코드(상수 200정상)
 
 ------------------------------------------------------------
--- 4일차 6교시 ResponseEntity사용법 --
+-- 4일차 6교시 ResponseEntity사용법, 비밀번호 암호화 --
 return new ResponseEntity<String>(str, headers, HttpStatus.OK);
 				문자열, 헤더정보, 응답코드(상수 200정상)
 자주쓰는 패턴 별도의 클래스로만들기
@@ -680,10 +682,42 @@ public class Script {
 	}
 }
 
+	// 비밀번호 암호화 하기
+		String passwd = memberVO.getPasswd();
+		String hasedPw = BCrypt.hashpw(passwd, BCrypt.gensalt()); // 암호화된 비밀번호 리턴받음
+		memberVO.setPasswd(hasedPw); // 암호화된 비밀번호로 재설정
 ------------------------------------------------------------
--- 4일차 7교시 --
+-- 4일차 7교시 트랜잭션을 위해 서비스클래스 사용--
+public class MemberService {
+	
+	private MemberMapper memberMapper;
+	//생성자로 하지 않으면 스프링에서만 읽을 수 있다. 다른곳 불가능
+	//생성자에서는 @Autowired 생략가능
+	public MemberService(MemberMapper memberMapper) {
+		super();
+		this.memberMapper = memberMapper;
+	}
+}
+DataSource는 커넥션풀 제공
+root-context에 <context:component-scan base-package="com.example.service" />
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+TransactionManager가 DataSource를 알아야한다.
+커넥션 객체.커밋이라는 게 있다. con.commit(); 이런거
+bean의 id를 TransactionManager를 꼭 넣어줘야하고 DispatcherServlet이 찾는다.
+네임스페이스에서 tx를 체크해준다.
+<tx:annotation-driven/>
+
+	public void register(MemberVO memberVO) {
+		memberMapper.insert(memberVO);
+	}
+실제로 서비스가 직접일을 못하고 맵퍼가 있는데,
+서비스가 컨트롤러한테 내가 했다~
 ------------------------------------------------------------
--- 5일차 1교시 --
+-- 5일차 1교시 마이바티스데이터베이스 연동--
+<!-- 테이블의 컬럼명과 VO객체의 setter명 연결 규칙 설정 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
 ------------------------------------------------------------
 -- 5일차 2교시 --
 ------------------------------------------------------------
@@ -858,7 +892,158 @@ C#이 자바를 벤치마킹해서 만들었다.
 C#으로 포팅
 
 ------------------------------------------------------------
--- 8일차 1교시 --
+-- 8일차 1교시 검색--
+게시글 기준으로 검색
+셀렉트와 인풋이 폼태그에 묶어있다.
+요청주소가 글목록이다. 보드컨트롤러 
+검색할 땐 get으로 하게된다. 주소창에 검색어가 나와도 특별히 문제될게 없고 즐겨찾기할 때에도 주소창그대로저장
+Criteria에서 같이 하자
+
+제목, 내용, 작성자 별로 분기처리 할 수 도 있는데, 불편하니깐
+java코드로 sql문을 검색조건에 따라서 WHERE조건절을 조금씩 바꾼다.
+동적sql문 실행중에 내용이 결정된다 (마이바티스가 지원해준다)
+정적sql문 미리 정해져있다.
+BoardMapper.xml 작성
+jsp c태그와 비슷
+
+검색어가 있을 때만 WHERE
+
+c태그 if 있지만, choose 쓰는 경우도 있다.
+------------------------------------------------------------
+-- 8일차 2교시 BoardMapper.xml, 보드서비스, 보드 매퍼.java,보드컨트롤러--
+CDATA안에 .toString()
+disabled selected 있을땐 다른곳에 selected가 우선적 표현
+pageMaker부분 복습하기.
+EL언어에서 +=가 문자열 연결이다.
+검색후에도 내가 검색한거 그대로 남도록
+DB에서 작성자 이름을 바꿔서 실행해봄
+------------------------------------------------------------
+-- 8일차 3교시 파일업로드 썸네일 이미지, jQuery사용(40분정도부터) --
+주소창 뒤에 #board 찍어주면 id가 board인지점부터 시작한다.
+actio="/board/list?#board"
+파일업로드 서블릿버전이 3버전이후로는 자동
+HTTP서블릿은 WAS서버가 실행해주는 객체?? 이부분 다시 듣기
+thumbnailator를 검색
+첨부파일을 업로드한 횟수만큼 화면에 보여주기
+파일 박스만들기
+
+<script>
+	var a = function(){};
+	a();
+	$('#btnAddFile')
+</script>
+------------------------------------------------------------
+-- 8일차 4교시 파일업로드 첨부파일 여러개 --
+자바스크립트만의 문법 백틱``
+let 지역변수개념 19분동영상
+var(자신을 감싸는 가장가까운 함수만 닫기)
+var a = 10;
+
+삭제할 때 이슈가 있다. 28분 그냥 파일추가만 했을 때 삭제가 안됨.
+정적이벤트 연결 vs 동적 이벤트연결
+jQuery가 동적이벤트연결인거 자동으로 해주는 기능이 있다.
+매개변수3개이면 jQuery 동적이벤트연결
+jQuery에서는 $(this).closest('div').remove(); 사용해서 간결하게
+remove()와 empty()는 다르다.
+$(this).parent().remove();
+
+fileCount --;
+
+mutiple하면 파일 여러개 선택가능(한 폴더안에서)
+------------------------------------------------------------
+-- 8일차 5교시 파일업로드 --
+인천 영종도 취업많음
+파일업로드는 서블릿 3버전이상이면 라이브러리에 포함되어있다.
+DispatcherServlet이 
+백슬러시 두번을 쓰던가, 슬러시써라
+원래는 주소를 C:/ksw/upload/temp 
+ERP 첨부파일 제약안뒀더니 압축 몇십기가에 프로그램 다운
+<!-- 파일 업로드 관련 설정 -->
+<multipart-config>
+<location>C:/Dev_jun/upload/temp</location><!-- 업로드된 파일이 위치할 임시경로 -->
+<file-size-threshold>10485760</file-size-threshold><!-- 임시파일 사용기준크기를 바이트단위로 설정,1024*1024*10(10메가) -->
+<max-file-size>314572800</max-file-size><!-- 한개 파일당 최대 업로드 크기(바이트단위) 300메가 -->
+<max-request-size>629145600</max-request-size><!-- 모든 파일 합쳐서 총 업로드 허용 크기(바이트) 600메가 -->
+</multipart-config>
+------------------------------------------------------------
+-- 8일차 6교시 파일업로드 한 라인에서 여러개파일--
+파일 한개만 보내는 경우 public void write(MultipartFile files){
+	
+}
+파일 여러개는 배열
+public void write(List<MultipartFile> files){
+	
+
+}
+한폴더에 너무 많은 파일은 성능저하의 요인이된다.
+하루하루 새 폴더 자동생성
+연도 월 일 폴더를 각각 만들어준다.
+UUID 
+파일입출력 예외처리를 스프링이 할 수 있다.throws IOException
 
 
+------------------------------------------------------------
+-- 8일차 7교시 파일업로드 --
+썸네일 이미지
+보드컨트롤러
 
+------------------------------------------------------------
+-- 8일차 8교시 파일업로드 --
+AttachMapper에서 xml에서 하는거 바로한다? 13분
+https://mybatis.org/mybatis-3/ko/configuration.html#typeAliases
+aliases List는 list
+게시글 올릴 때 트랜잭션 이슈: 사진과 게시글을 한 작업으로 묶기
+
+------------------------------------------------------------
+-- 9일차 1교시 --
+메서드 시그니처와 함께붙는 애너테이션등을 스프링이 자동으로
+foreach에서 open close는 전체로 하는거다. 우리는 안넣는다.
+15분 내용 신입인데 대단한걸?? 내용 복습
+127.0.0.1 이건 가상주소
+나의 주소는 ipv4 ipconfig로 볼 수 있다.
+
+문서화하는 능력 파워포인트
+
+
+------------------------------------------------------------
+-- 9일차 2교시 파일업로드 --
+
+------------------------------------------------------------
+-- 9일차 3교시 파일첨부된거 상세내용에서 표현--
+Apache commonsIO 2.11.0
+이미지까지 가져오는게 아니고, 문서만 가져오고
+이미지는 src로 이미지 요청하고
+서버가 이미지도 보내줌
+------------------------------------------------------------
+-- 9일차 4교시 파일첨부 다운로드--
+APPLICATION_OCTET_STREAM_VALUE
+
+Resource resource = new FileSystemResource(file);
+String downloadFilename = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
+ISO-8859-1
+HttpHeaders headers = new HttpHeaders();
+headers.add("Content-Disposition", "attachment
+UUID
+encodeURIComponent(생활코딩) 자바스크립트 동영상 39분 쯤
+파일이름이 이상하게 나오는 현상 고치기
+<a href="javascript:location.href = '/download?fileName=' + encodeURIComponent(${ fileCallPath }"> 이부분은 수정할 것
+
+
+------------------------------------------------------------
+-- 9일차 5교시 4교시의 문제해결, 권한문제, 주변부로직 횡단관심사40분 cross concerns--
+substring
+콘솔창에서는 유니코드가 잘보이는데, iso-8859-1은 콘솔창에서 깨진다.
+jsp 과제
+프로그램을 아는 사람이면 대충 주소를쳐서 아무곳에 드간다(글쓰기 아무렇게나)(보안취약성)
+로그아웃도 로그인을 확인하는 절차
+주변부 로직
+
+인터셉터로 쿠키~ 자동로그인
+------------------------------------------------------------
+-- 9일차 6교시 로그인 보안이슈해결 --
+로그인 보안
+회원정보수정 회원정보탈퇴
+------------------------------------------------------------
+-- 9일차 7교시 --
+------------------------------------------------------------
+-- 9일차 8교시 --
