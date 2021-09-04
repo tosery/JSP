@@ -1044,6 +1044,180 @@ jsp 과제
 로그인 보안
 회원정보수정 회원정보탈퇴
 ------------------------------------------------------------
--- 9일차 7교시 --
+-- 9일차 7교시 인터셉터 --
 ------------------------------------------------------------
--- 9일차 8교시 --
+-- 9일차 8교시 자습 --
+
+------------------------------------------------------------
+-- 10일차 1교시 주변부 3대장 --
+필터(스프링은 아님) 인터셉터 AOP
+Servlet Request, Servlet Response 톰캣이 필터부터 호출한다.
+스프링모듈이 
+엔진주변에 중요한 부품들 controller 
+controller 웹모듈
+root-context 맵퍼 데이터베이스모듈
+스프링 프레임워크의 특징 3가지 DI(포함관계), AOP가 주요로직에 안보이게, 서비스추상화(확장성좋다) 
+aspectj위버를 준비해라.aspectjweaver 1.6.10
+몇 밀리초가 뜨는지 성능측정할 때 long beginTime = System.currentTimeMillis();
+	// 회원가입하기
+	public void register(MemberVO memberVO) {
+		long beginTime = System.currentTimeMillis();
+		
+		memberMapper.insert(memberVO);
+		
+		long endTime = System.currentTimeMillis();
+		
+		long diff = endTime - beginTime;
+	}
+	일일이 beginTime 이런걸 다 적어줘야한다.
+------------------------------------------------------------
+-- 10일차 2교시 AOP --
+AOP fancy한 용어 단계적 접근 여러개 해결하기어려운 문제때문에
+주변부 로직(공통 기능)을 분리해서 개발하는 방식
+스프링은 AOP기능을 타겟 메소드 호출 기준으로 주요 로직에 주변부 로직을 결합시켜줌
+까메오
+- Advice: 주변부 로직(공통기능)을 가진 클래스
+- Target: 주요 로직을 가지고 있는, 주변부 로직이 적용될 대상 오브젝트
+- Join Point: 주변부 로직이 적용될 수 있는 메소드 후보들
+- Point Cut: 카메오가 들어나는 시점, 조인포인트(후보)들 중에 실제 결합시킬 메소드를 말함
+스캔이 일어나도록 root-context설정하기
+name스페이스 AOP체크
+메서드 시그니처: 리턴타입 메소드명 (매개변수 형식)
+*(..)매개변수 상관없다.자료형관계없이
+
+------------------------------------------------------------
+-- 10일차 3교시 LogAdvice.java --
+속여서 들어온다 27분
+memberservice에서는 주변부 사용할것이라고 생각도 못한다. 안보여서
+글삭제할 때 파일삭제
+------------------------------------------------------------
+-- 10일차 4교시 게시판 글삭제, 글수정 --
+배치처리(일괄)
+on으로 시작하는게 있으면 전부 자바스크립트로 이게 실제로 작동원리는 function() { }이렇게 바뀐다. 12분
+onclick="remove()"이런건 바로해도됨
+onclick="remove(event);"이벤트 얘기할땐 무조건 event event객체 안받을거면 생략해도됨
+	<script>
+		function remove(event){
+			
+		}
+	</script>
+요청하는 a태그 폼태그 기능안하게 하려면
+이벤트 소스(이벤트 발생 오브젝트)의 기본동작을 못하게 한다.
+기본동작을 가진 대표적인 두 태그: a태그(클릭못하게) form태그(submit 못하게)
+event.preventDefault();
+------------------------------------------------------------
+-- 10일차 5교시  --
+보드컨트롤러
+보드서비스에 딜리드만들기
+보드매퍼xml 딜리트해보자
+글삭제 업무단위라 할 수 있고, 테이블 2개 관련되어있다.
+@Transactional AOP와 일맥상통 17분동영상 주변부 로직
+return "redirect:/board/list?pageNum=" + pageNum"
+파일업로드 글쓰기하고나서 상세보기하려고 리다이렉트하는거 rttr.attributes
+update텍스트내용
+추가,삭제 파일첨부된거
+
+uuid
+------------------------------------------------------------
+-- 10일차 6교시  --
+commons io 2.11.0 이고
+글수정할 때 boardModify.jsp에서 value로는 여러줄 표현 어려움 19분
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 이걸로 첨부파일 자바스크립트
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 이건 필요없음
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 개수 세려고
+
+<c:forEach var="attach" items="${ attachList }">
+<input type="hidden" name="oldfile" value="${ attach.uuid }">
+<div>
+<span>${ attach.filename }</span>
+<button type="button" class="btn btn-primary btn-sm delete-oldfile">
+<i class="material-icons align-middle">clear</i>
+<span class="align-middle">삭제</span>
+</button>
+</div>
+</c:forEach>
+------------------------------------------------------------
+-- 10일차 7교시  --
+중간확인 HRD
+boardModify.jsp에
+JQuery로 처리 
+prev()
+jQuery는 반복처리에 효과적이다.
+jQuery는 반복문을 내부적으로 해준다.$ on 
+서버 프론트앤드 연동이라 리액트까지는 무리
+자바스크립트
+jQuery 선택자 어쩌구어쩌구
+vuejs가 진입장벽이 낮다.
+리액트 VS vue.js
+jsp책에 18장 스프링만 적용? 다른거 해도 됨
+------------------------------------------------------------
+-- 11일차 1교시  --
+로컬데이터
+백틱`` 안에서 자바스크립트 출력
+boardModify.jsp에서 설명 동영상 18분정도
+백틱은 문자를 한덩어리로 표현하려고 하는 것이다.
+\${ a } 이거 jsp EL언어 또는 자바스크립트랑 겹친다. 백슬러시만 써주면 자바스크립트로 써진다.
+
+@PostMapping("/modify")
+	public void modify(List<MultipartFile> files, BoardVO boardVO) {
+		//1) 파일업로드
+		//2) 삭제할 첨부파일 삭제하기(썸네일 이미지도 삭제)
+		//3) board 테이블 글 수정(update) boardVO준비해서 신규리스트, 삭제리스트와 함께
+		//테이블 글 수정을 트랜잭션 단위로 처리
+		//modify
+------------------------------------------------------------
+-- 11일차 2교시  --
+@PostMapping("/write")
+List<AttachVO> attachList = makeFilesAndGetAttachList();
+3분에 리턴받는 방식과 vs 리턴아닌 방식 3번째는 비어있는거
+16분 삭제하는 거 배울만한거~~~ 다시 복습하기
+MySQL IN에 대하여 29분까지
+AttachMapper에 List<AttachVO>작성
+
+------------------------------------------------------------
+-- 11일차 3교시  --
+보드 컨트롤러 설명
+동영상 24분 어려운부분. 모아서 보내냐 따로따로 한개씩 보내냐차이?
+수정하기 완성~
+------------------------------------------------------------
+-- 11일차 4교시  --
+
+조인, 마이바티스로
+사용자요청이 없어도 스케쥴에 따라서 동작하는거 REST api
+------------------------------------------------------------
+-- 11일차 5교시 답글쓰기 --
+보드컨텐트 상세보기 
+답글만드는 원리 설명
+레벨은 화면만들기
+re_seq
+똑같은 레벨의 답글을 최신순서로
+나머지 re_seq를 +1 이거를 UPDATE SET
+reply가 모델주세요 addAttribute("reRef",reRef) 이런 패턴 애너테이션방식도 있음
+그게바로 @ModelAttribute("reRef")
+------------------------------------------------------------
+-- 11일차 6교시  --
+답글쓰기 위치관련 작업
+매개변수가 2개 이상일 경우  19분 2개이상은 안된다.
+
+------------------------------------------------------------
+-- 11일차 7교시 답글쓰기, SQL LEFT OUTER조인 --
+답글
+<span style="display: inline-block; width: ${ board.reLev * 15 }px"></span>
+inline - block은 배치는 inline 크기는 block
+
+SQL JOIN 1대1 관계 :private AttachVO attachVO
+SQL JOIN 1대다관계 :List<AttachVO> attachList
+마이바티스가 자동으로 해준다.
+
+
+
+
+
+
+
+
+
+
+
+
+
