@@ -1210,11 +1210,275 @@ SQL JOIN 1대다관계 :List<AttachVO> attachList
 마이바티스가 자동으로 해준다.
 
 
+------------------------------------------------------------
+-- 12일차 1교시 --
+마이바티스 조인 만들 줄 알면 좋다.
+조인안쓰고 가져오기 18분 vs 조인쓰고 가져오기 18분
+맵을 이용하는건 안좋은거 같다 20분
+BoardVO boardVO = boardService.getBoardAndAttaches(num);
+25분정도 소리문제로 약간 짤림
+
+Quartz라이브러리 자바진영 서버프로그램 정보처리기사 1번 스케쥴러
+Quartz잡스도 필요
+------------------------------------------------------------
+-- 12일차 2교시 배치처리, @Scheduled(cron = "") --
+@Component
+FileCheckTask
+WEB-INF 스프링에 루트컨텍스트xml에서 배치처리
+컴포넌트 스캔
+<context:component-scan base-package="com.example.task" />
+@Scheduled(cron="0 * * * * ?") //매분 마다
+public void checkFiles() throws Exception{
+	
+}
+네임스페이스 task 추가
+<task:annotation-driven />
+Quartz표현식 7개 동영상 15분 스케쥴
+Seconds
+Minutes
+Hours
+... 연도는 옵션
+
+------------------------------------------------------------
+-- 12일차 3교시 --
+Calendar cal = calendar.getInstance();
+9월 3일자 파일 여러개 있는거
+SELECT * FROM attach WHERE uploadpath = '2021/09/03';
+------------------------------------------------------------
+-- 12일차 3교시 --
+예약프로그램(쿼츠)
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------
+-- 12일차 4교시 --
+REST API(12시 30분)
+Json??
+NHN
+REST API
+클라이언트가 웹브라우저만 있는게 아니다.
+스윙 GUI 자바 HTTPurl 특정URL 접속
+자바 코틀린 스위프트( 이기종이다)
+
+모바일은 데이터를 최대한 절약해야한다. 
+xml을 대체할 자바스크립트 객체 표기법 JSON { }기본오브젝트 [ ]배열
+{}이거는 맵컬렉션과 VO에 가깝다, []이거는
+key리스트 어렵다 하나하나 반복문 써줘야하고 불편
+
+
+
+
+------------------------------------------------------------
+-- 12일차 5교시 --
+
+HTTP 그대로
+NHN 웹서버가 중간에 껴서 사물이 직접 DB에 접속하는게 아님
+웹 오피스 이런게 REST방식
+렌더링을 jsp 서블릿 서버기술이고
+스프링에서는 REST에너테이션
+jackson-databind 라이브러리가 필요하다. 스프링연동 라이브러리
+jackson-dataformat은 xml도 쓰고 싶을 때
+gson은 직접 수동으로 하고싶을 때
+webapp에 
+			@RestController 이 컨트롤러의 모든 메소드의 리턴값이 기존에는 jsp등이였는데, JSON 또는 XML로 응답
+			@RequestMapping("/api/members/*")
+컨트롤러를 새로 만든다 
+
+@RestController 이 컨트롤러의 모든 메소드의 리턴값이 기존에는 jsp등이였는데, JSON 또는 XML로 응답
+@RequestMapping("/api/members/*")
+MemberRestController{
+	
+	@Autowired
+	private MemberService memberService;
+						produces가 json 타입으로 만든다. 두 개 다주면 XML 뒤에 .json 붙이면 json으로 온다.
+	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}) 이건 마음대로 /api/members/user1
+	public MemberVO getOne(@PathVariable("mid") String id){
+		
+		MemberVO memberVO = memberService.getMemberById(id);
+
+		return memberVO;
+	}
+	
+}
+	insert 이런게 들어나면 안된다
+테스트
+Routes
+rest에서는 쿼리스트링 안쓰고  /members?id = user1
+안드로이드앱 DB서버와 연동하려면 REST 서버 준비해놔야한다.
+
+ 구글 웹스토어에서 json
+
+
+
+------------------------------------------------------------
+-- 12일차 6교시 --
+
+개발자모드 - 네트워크
+
+ResponseEntity<MemberVO> getOne(@PathVariable("id") String id)
+500번에러
+
+응답코드랑 매핑을 해줘야 나중에 문제찾기 쉬움
+HttpURLConnection
+Volley같은거
+Retrofit2 
+무조건 컨트롤러 거쳐야
+jquery
+ajax({
+  url: '/api/members/' + id + '.json', 
+})
+
+
+
+------------------------------------------------------------
+-- 12일차 7교시 --
+동기처리, alert함수는 안누르면 그다음으로 안넘어간다.
+비동기처리, 
+async: false 그냥 넘어간다.
+자바스크립트는 전부 비동기처리.
+
+분신술
+
+진동벨
+
+
+------------------------------------------------------------
+-- 13일차 1교시 --
+ppt 33쪽 json 나온다.
+
+자습
+
+첨부파일 업로드
+------------------------------------------------------------
+-- 13일차 2교시 --
+MemberRestcontroller 
+http://localhost:[포트번호]/ajax/selectOneMember.jsp
+http://localhost:[포트번호]/ajax/selectAllMembers.jsp
+jquery
+json
+ajax 
+
+REST API는 개념을 잘잡아야하고, 안드로이드 연동이슈 매우 중요
+GET방식으로 멤버 불러오기 했다. 
+
+기존의 @PostMapping(value="/members") 이런부분을
+REST방식으로 변경해보기
+https://jsonplaceholder.typicode.com/ << 주소양식
+Get방식은 header body영역
+동영상 37분부터 매우 중요한 부분
+json 바디
+@RequestBody MemberVO
+gson.fromJson(~~~) 이 작업도 스프링이 자동화 해준다
+직렬화: 납작한 종이에 써지는 느낌 41분 쿼리스트링으로 하느냐 안하느냐
+------------------------------------------------------------
+-- 13일차 3교시 ajax 요청--
+http
+<form>태그에서 action 쓸 필요가 없이 id만 적어
+MemberVO랑 일치시킨다.
+일반타입 버튼
+$('form#frm')폼태그에 아이디 frm jquery
+serialize()함수
+쿼리스트링: 네임속성 쿼리속성
+근데 쿼리스트링 보낼게 아니다. @RequestBody를 쓰면안됨
+젠코딩카페 jQery에서 ajax 사용하기 serializeObject 라이브러리 다운로드하기
+선언하기
+<script src="/resources/js/jquery.serializeObject"
+let obj = $(this).serializeObject();
+console.log(typeof obj);
+console.log(obj);
+
+------------------------------------------------------------
+-- 13일차 4교시 --
+json은 문자열형식에서는 메소드 안되고, 콜론앞에 큰따움표로
+자바스크립트에 JSON.stringify(obj) 
+.json으로 하면 제이슨, 없으면 xml로됨
+...
+data: strJson;
+
+...
+$(this)는 어디에 있느냐에 따라 부모가 다름15분
+
+jquery를 통해서 리턴받은 값을 $frm으로 붙여주는게 관례이다. 18분
+/ajax/insertMember.jsp 특이한 이슈 21분
+application/json 이거 복사 27분
+delete 매핑작업
+HttpStatus.INTERNAL_SERVER_ERROR 500번에러
+HttpStatus.BAD_GATEWAY 502번 외부에서 전달받은 값이 잘못되어 오류가 발생한 경우
+INTERNAL_SERVER_ERRO 500번 외부에서 온건 문제 없고 서버내부로직 문제로 오류가 발생
+
+@DeleteMapping(value="/members/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+public ResponseEntity<String> void remove(@PathVariable("id") String id{
+
+}
+------------------------------------------------------------
+-- 13일차 5교시 --
+회원삭제작업
+25분
+consumes json입력
+produces 자동출력
+(count > 0) ? new ResponseEntity<String>("success", HttpStatus.OK") :new ResponseEntity<String>("fail, HttpStatus.BAD_GATE_WAY");
+${this}.serializeObject();
+
+------------------------------------------------------------
+-- 13일차 6교시 --
+BoardRestController
+파일전송할 때 enctype은 멀티파트37분
+onsubmit(aaa 0~) 38분 이거 안 쓸것이다.
+
+$('form#frm').on('submit', function(event){
+	event.PreventDefault();
+
+	this // event.target 이벤트소스(이벤트가 발생한 대상 오브젝트를의미)
+
+	전부안되면
+	$('form#frm')[0] 42분 0번째인덱스 가져오면 객체나옴;
+
+	let form = $(this)[0]
+});
+------------------------------------------------------------
+-- 13일차 7교시 스프링 과제--
+form태그에 enctype 있으니 굳이 안해줘도됨
+$.ajax({
+	url: '/api/boards',
+	enctype 생략가능
+	method:'POST',
+	data: formData,
+	processData: false, //파일전송시에만 false설정 필수
+	contentType: false,
+	success: function(){
+		console.log(typeof data);
+		console.log(data);
+		
+	},
+	error: function (request, status, error){
+		alert('code: ' + request.status + '\n message: ' + request
+	}
+});
+
+코로나 또는 통계자료 같은거 공공API 파싱하려면 
+
+검색하다보면 open API같은거를 가져와서 쓴다고 하는 말이 있던데
+그거는 어떤 기술을 쓰는지 궁금합니다.
+
+clone 
+얕은복사 객체를 주소만 복사  -- 이 내용 중요 17분 
+시험은 수업위주로 
+스프링 과제물
+
+------------------------------------------------------------
+-- 14일차 1교시 --
 
 
 
