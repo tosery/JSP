@@ -1,0 +1,159 @@
+-- 1일차 1교시 --
+시큐리티
+mvc프로젝트로하면 기본적으로 maven으로 만들어진다
+기본 JavaSE가 1.6으로 나오는데
+테스트 jdbc
+-- 1일차 2교시 --
+
+리스너로 설정파일에 만들 수 있다
+서블릿context
+rootcontext
+
+taglib는 우리환경이라서 쓰는 것
+마이바티스 다른방식으로 해보기...
+
+beanconfiguration 파일로 시큐리티컨텍스트 만들기
+
+spring 밑에 xml
+
+spring이 보안
+
+시큐리티 홀더에 
+security-context.xml에 매니저 필요하다
+
+-- 1일차 3교시 --
+물음표니깐 prepared
+datasource 인잭트 되어야하므로 @autowired
+passwordEncoder형을 보면 부모형이니깐
+
+-- 1일차 4교시 --
+마이바티스 경로 root에 안하고
+com.mysecurity.mapper 패키지에 멤버맵퍼 클래스
+이제는 xml에 안쓰고 바로 인잭트 하기
+DTO 만드는 부분이다.23~26분 정도
+
+MemberMapper.xml을 만든다.
+
+맵퍼만들어 23분
+조인이 되어서 가져온다
+1대 다 
+resultType은 게터세터
+resultMap을 만들면 된다??35분
+<resultMap type = "com.mysecurity.dto>
+
+DTO만드는거 
+MySql에서 1대다의 관계하려면
+resultType은 getter setter인거고
+<resultMap type="com.mysecurity.dto.MemberDTO" id="memberMap">
+	
+</resultMap>
+
+
+-- 1일차 5교시 --
+단위 테스트
+32분 403에러가 나와야함. 시큐리티 컨피그
+myapp/form
+42분 내가 만든페이지 login-page = "/customLogin" />
+<a href="customLogin">로그인</a>
+localhost:9005/myapp/customLogin
+
+
+-- 1일차 6교시 --
+
+커스텀 로그인 커스텀 로그아웃
+
+security-context.xml
+
+permitAll은 누구나 접속
+
+
+-- 1일차 7교시 --
+마지막 분기점은 CustomLoginSuccess.java파일이다.
+UserDetailsService
+이거는 loadUserByUsername을 무조건 부르게 되어있다.
+
+4분정도 id, pw, 권한을MemberDAO의 member로 바꾼다~ CustomUser.java
+그 멤버를 시큐리티 컨텍스트에 customLoginSuccess.java로~
+
+	<security:http>
+		<security:intercept-url pattern="/all" access="permitAll" />
+		<security:intercept-url pattern="/manager" access="hasRole('ROLE_MANAGER')" />
+		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess" />
+		<security:csrf disabled="true" />
+		<security:logout logout-url="/customLogout"
+			invalidate-session="true" />
+	</security:http>
+유저 디테일즈 서비스
+=====================================================================
+-- 2일차 1교시 --
+부트에서는 자바에서하고 xml이 아님
+io에서 만들어서 임포트
+sts ->starterproject
+spring.io -> import
+전자정부표준프레임워크
+마이바티스
+부트는 패키지만들때 처음만든거 밑에서 만들어야한다.
+
+=====================================================================
+-- 2일차 2교시 --
+시큐리티컨텍스트
+유저 디테일즈 서비스
+@Configuration
+.antMatchers("/user/*").authenticated()
+.anyRequest().permitAll()
+.을 하는 이유
+logoutUrl("/logout")
+boot에서는 securityConfig.java
+=====================================================================
+-- 2일차 3교시 --
+
+
+=====================================================================
+-- 2일차 4교시 --
+스프링부트는 자바로 만드는 걸 부트이고 
+
+ORM 하이버네이트 spring data jpa 예제해보기 2분
+
+마이바티스 SQL매퍼
+@Entity가 중요하다.
+=====================================================================
+-- 2일차 5교시 --
+자동으로 
+insert.jsp join에 post방식
+
+컨트롤러 JapMember @modelattribute는 자동으로 됨
+JpaRepository에 이미 save가 있다. 이건 페이징도 상속받았으니 페이징도 가능하다
+?로 넘기면 Strind id로 받으면 된다 25분
+model.addAttribute("member" memberS
+@PathVariable Long id, Model model\
+
+29분 Optional
+
+33분 버튼 무슨말?? 놓침
+
+36분
+ㄴ
+=====================================================================
+-- 2일차 6교시 --
+비동기 함수
+8분 넘기는 형태가 인자 문자열일 때 @ResponseBody와 @Controller 합쳐서 쓰는거 REST Controller
+변화된 부분만 바꾸기 위해
+@ResponseBody REST이다
+@RequestBody
+클래스가 똑같아서 32분 
+콜백함수???
+data-mid="${member.id}"이걸 하는 이유는 겹치기 때문
+html5 data붙이면 된다.
+
+
+=====================================================================
+-- 2일차 7교시 --
+
+boot는 void가 잘안되서 2분 String
+21분 놓침 json형태
+jackdata-bind 라이브러리 json처리해주는게 포함되있음 이게 
+HomeController의 @RequestBody랑 연결됨(2일차 7교시 23분,2021/09/10)
+MemberService.java에 37분 @Transactional
+put을 사용하기 위해 json형태로 넘김 22분
+=====================================================================
+-- 3일차 1교시 --
